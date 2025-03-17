@@ -1,13 +1,13 @@
 import pandas as pd
 
-input_file = 'src/sheets/casos.xlsx'
-output_file = 'src/outputs/dados_filtrados.xlsx'
+input_file = 'src/extract/input/sindrome_gripal_2024.xlsx'
+output_file = 'src/extract/outputs_extraidos/sindrome_gripal_2024.xlsx'
 
 
 try:
     df = pd.read_excel(input_file)
 
-    colunas = ["sintomas", "racaCor", "sexo", "estado", "municipio", "dataNotificacao"]
+    colunas = ["sintomas", "racaCor", "sexo", "municipio", "dataNotificacao"]
     df_filtrado = df[colunas].dropna()
 
     count_sintomas = df["sintomas"].dropna().value_counts().reset_index()
