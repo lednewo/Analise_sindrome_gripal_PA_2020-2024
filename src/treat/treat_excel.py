@@ -1,7 +1,8 @@
 import pandas as pd
 
 input_file = 'src/extract/outputs_extraidos/sindrome_gripal_2020.xlsx'
-output_file = 'src/treat/outputs/teste.xlsx'
+output_file = 'src/treat/outputs/sindrome_gripal_2020.xlsx'
+
 
 try: 
     substituicoes = {
@@ -78,7 +79,6 @@ try:
         "TrairÃ£o": "Trairão",
         "Oeiras do ParÃ¡": "Oeiras do Pará",
         "Santa Luzia do ParÃ¡": "Santa Luiza do Pará",
-        "Santa Izabel do ParÃ¡": "Santa Izabel do Pará",
         "SÃ£o Francisco do ParÃ¡": "São Francisco do Pará",
         "IgarapÃ©-Miri": "Igarapé-Miri",
         "GoianÃ©sia do ParÃ¡": "Goianésia do Pará",
@@ -89,13 +89,12 @@ try:
     df = pd.read_excel(input_file)
     df = df.replace(substituicoes, regex=True)
 
+    df['dataNotificacao'] = pd.to_datetime(df['dataNotificacao']).dt.date
+
     with pd.ExcelWriter(output_file, engine="openpyxl") as writer:
         df.to_excel(writer, sheet_name="Dados tratados", index=False)
 
     print(f"Arquivo salvo em: {output_file}")
 
 except Exception as e:
-    print(f"Erro ao processar o arquivo: {e}") 
-
-
-
+    print(f"Erro ao processar o arquivo: {e}")
