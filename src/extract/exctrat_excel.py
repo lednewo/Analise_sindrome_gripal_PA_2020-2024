@@ -8,10 +8,10 @@ try:
     df = pd.read_excel(input_file)
 
     colunas = ["sintomas", "racaCor", "sexo", "municipio", "dataNotificacao"]
-    df_filtrado = df[colunas].dropna().replace("CabeÃ§a", "Cabeça", regex=True)
+    df_filtrado = df[colunas].dropna()
 
 
-    count_sintomas = df["sintomas"].dropna().value_counts().reset_index()
+    count_sintomas = df["sexo"].value_counts().reset_index()
 
     with pd.ExcelWriter(output_file, engine="openpyxl") as writer:
         df_filtrado.to_excel(writer, sheet_name="Dados Filtrados", index=False)
